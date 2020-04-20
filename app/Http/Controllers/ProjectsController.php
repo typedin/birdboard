@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Project;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class ProjectsController extends Controller
 {
@@ -28,7 +27,8 @@ class ProjectsController extends Controller
                 "description" => "required",
             ]
         );
-        $attributes["owner_id"] = Auth::id();
+
+        $attributes["owner_id"] = auth()->id();
 
         Project::create($attributes);
 
