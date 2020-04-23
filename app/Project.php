@@ -25,6 +25,13 @@ class Project extends Model
 
     public function addTask($body)
     {
-        return $this->tasks()->create(compact("body"));
+        return $this->tasks()->create(
+            [
+                "body" => $body,
+                // hack for now
+                // @see create_tasks migration
+                "completed" => false
+            ]
+        );
     }
 }
