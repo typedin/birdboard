@@ -6,6 +6,7 @@ use App\Project;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class ManageProjectsTest extends TestCase
@@ -33,7 +34,8 @@ class ManageProjectsTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $this->actingAs(factory(User::class)->create());
+        $this->signIn();
+
         $this->get("/project/create")->assertStatus(200);
 
         $attributes = [
@@ -55,7 +57,8 @@ class ManageProjectsTest extends TestCase
      */
     public function a_user_can_view_their_project()
     {
-        $this->be(factory(User::class)->create());
+        $this->signIn();
+
         $project = factory(Project::class)->create(
             [
             "owner_id" => auth()->id(),
@@ -64,7 +67,7 @@ class ManageProjectsTest extends TestCase
 
         $this->get($project->path())
             ->assertSee($project->title)
-            ->assertSee($project->description);
+            ->assertSee(Str::limit($project->description, 100));
     }
 
     /**
@@ -72,7 +75,8 @@ class ManageProjectsTest extends TestCase
      */
     public function an_authenticated_user_cannot_view_the_projects_of_others()
     {
-        $this->be(factory(User::class)->create());
+        $this->signIn();
+
         $project = factory(Project::class)->create();
 
         $this->get($project->path())->assertStatus(403);
@@ -83,7 +87,7 @@ class ManageProjectsTest extends TestCase
      */
     public function a_project_requires_a_title()
     {
-        $this->actingAs(factory(User::class)->create());
+        $this->signIn();
 
         $attributes = factory(Project::class)->raw(
             [
@@ -98,7 +102,7 @@ class ManageProjectsTest extends TestCase
      */
     public function a_project_requires_a_description()
     {
-        $this->actingAs(factory(User::class)->create());
+        $this->signIn();
 
         $attributes = factory(Project::class)->raw(
             [
