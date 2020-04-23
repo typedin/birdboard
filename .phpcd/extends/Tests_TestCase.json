@@ -1,1 +1,1 @@
-["Tests\\Feature\\ProjectTest","Tests\\Model\\ProjectTest","Tests\\Feature\\ManageProjectsTest"]
+["Tests\\Feature\\ProjectTest","Tests\\Model\\ProjectTest","Tests\\Feature\\ManageProjectsTest","Tests\\Feature\\ProjectTasksTest"]

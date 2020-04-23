@@ -1,1 +1,1 @@
-["App\\Http\\Controllers\\ProjectsController"]
+["App\\Http\\Controllers\\ProjectsController","App\\Http\\Controllers\\ProjectTasksController"]

@@ -19,7 +19,7 @@
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     </head>
-    <body class="bg-gray-200">
+    <body class="text-gray-900 bg-gray-200">
         <div id="app">
             <nav class="bg-white shadow-sm">
                 <div class="container mx-auto">

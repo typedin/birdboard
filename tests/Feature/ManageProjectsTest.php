@@ -67,7 +67,7 @@ class ManageProjectsTest extends TestCase
 
         $this->get($project->path())
             ->assertSee($project->title)
-            ->assertSee(Str::limit($project->description, 100));
+            ->assertSee($project->description);
     }
 
     /**

@@ -14,18 +14,11 @@
                 <div>
                     <h2 class="text-lg text-gray-600">Tasks</h2>
                     {{-- tasks --}}
+                    @foreach($project->tasks as $task)
                     <div class="card mt-3">
-                        Lorem ipsum.
+                        {{ $task->body }}
                     </div>
-                    <div class="card mt-3">
-                        Lorem ipsum.
-                    </div>
-                    <div class="card mt-3">
-                        Lorem ipsum.
-                    </div>
-                    <div class="card mt-3">
-                        Lorem ipsum.
-                    </div>
+                    @endforeach
                 </div>
                 <div class="mt-8">
                     <h2 class="text-lg text-gray-600">General Notes</h2>
