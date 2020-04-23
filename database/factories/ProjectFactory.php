@@ -13,9 +13,7 @@ $factory->define(
         return [
             "title" => $faker->sentence(4),
             "description" => $faker->sentence(4),
-            "owner_id" => function () {
-                return factory(User::class)->create()->id;
-            },
+            "owner_id" => factory(User::class)->create(),
         ];
     }
 );

@@ -44,7 +44,7 @@ class ManageProjectsTest extends TestCase
         ];
 
         $this->post("/projects", $attributes)
-            ->assertRedirect("/projects");
+            ->assertRedirect(Project::where($attributes)->first()->path());
 
         $this->assertDatabaseHas("projects", $attributes);
 
@@ -53,7 +53,7 @@ class ManageProjectsTest extends TestCase
     
 
     /**
-     * @test 
+     * @test
      */
     public function a_user_can_view_their_project()
     {
