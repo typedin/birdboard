@@ -6,7 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
-    protected $fillable = ["title", "description", "owner_id"];
+    protected $fillable = [
+        "description",
+        "notes",
+        "owner_id",
+        "title",
+    ];
 
     public function path(): string
     {

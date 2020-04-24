@@ -36,9 +36,17 @@
                 <div class="mt-8">
                     <h2 class="text-lg text-gray-600">General Notes</h2>
                     {{-- general notes --}}
-                    <textarea class="card w-full mt-3" style="min-height: 200px;">
-                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-                    </textarea>
+                    <form method="POST" action="{{ $project->path() }}">
+                        @csrf
+                        @method("PATCH")
+                        <textarea
+                            name="notes"
+                            class="card w-full mt-3"
+                            style="min-height: 200px;"
+                            placeholder="Anything special that you want to make a note of?"
+                        >{{ $project->notes }}</textarea>
+                        <button class="button mt-4" type="submit">Save</button>
+                    </form>
                 </div>
 
             </div>
