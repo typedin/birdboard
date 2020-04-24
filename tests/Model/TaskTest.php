@@ -15,6 +15,16 @@ class TaskTest extends TestCase
     /**
      * @test
      */
+    public function it_defaults_to_not_completed_when_created()
+    {
+        $task = factory(Task::class)->create();
+
+        $this->assertFalse($task->completed);
+    }
+
+    /**
+     * @test
+     */
     public function it_belongs_to_a_project()
     {
         $task = factory(Task::class)->create();
