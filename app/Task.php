@@ -12,6 +12,7 @@ class Task extends Model
      * @var array
      */
     protected $touches = ["project"];
+
     /**
      * Attributes to allow fillable assignements.
      *
