@@ -30,7 +30,7 @@ class ManageProjectsTest extends TestCase
     }
 
     /**
-     * @test 
+     * @test
      */
     public function a_user_can_create_a_project()
     {
@@ -89,7 +89,7 @@ class ManageProjectsTest extends TestCase
     }
 
     /**
-     * @test 
+     * @test
      */
     public function an_authenticated_user_cannot_view_the_projects_of_others()
     {
@@ -101,7 +101,7 @@ class ManageProjectsTest extends TestCase
     }
 
     /**
-     * @test 
+     * @test
      */
     public function an_authenticated_user_cannot_update_the_projects_of_others()
     {
@@ -113,7 +113,7 @@ class ManageProjectsTest extends TestCase
     }
 
     /**
-     * @test 
+     * @test
      */
     public function a_project_requires_a_title()
     {
@@ -128,7 +128,7 @@ class ManageProjectsTest extends TestCase
     }
 
     /**
-     * @test 
+     * @test
      */
     public function a_project_requires_a_description()
     {
