@@ -5,9 +5,9 @@
             <ol itemscope itemtype="https://schema.org/BreadcrumbList" class="flex text-gray-600 space-x-1">
                 <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
                     <a itemprop="item" href="/projects">
-                       <span itemprop="name">
-                           My Projects
-                       </span>
+                        <span itemprop="name">
+                            My Projects
+                        </span>
                     </a>
                     <meta itemprop="position" content="1" />
                 </li>
@@ -62,9 +62,17 @@
                                 >{{ $project->notes }}</textarea>
                             <button class="button mt-4" type="submit">Save</button>
                         </form>
+                        @if ($errors->any())
+                            <div class="mt-6">
+                                <ul>
+                                    @foreach($errors->all() as $error)
+                                        <li class="text-sm text-red-600">{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                     </div>
                 </div>
-
             </div>
             <div class="col-start-11 col-span-12 lg:mt-0 mt-6">
                 @include("projects.card")
