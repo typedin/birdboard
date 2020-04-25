@@ -11,7 +11,6 @@
         >
             @method("PATCH")
             @include("projects.form", [
-                {{--"project" => new \App\Project(),--}}
                 "buttonText" => "Update Project"
             ])
         </form>

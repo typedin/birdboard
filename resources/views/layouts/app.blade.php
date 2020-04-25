@@ -12,10 +12,6 @@
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
 
-        <!-- Fonts -->
-        <link rel="dns-prefetch" href="//fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     </head>
@@ -26,8 +22,9 @@
                     <div class="flex justify-between items-center py-2">
 
                         <h1>
-                            <a class="navbar-brand" href="{{ url('/projects') }}">
-                                <img src="/images/logo.svg" alt="birdboard">
+                            <a class="transition ease-in-out duration-200 text-teal-400 hover:text-teal-200 flex items-center" href="{{ url('/projects') }}">
+                                @include("svg.logo")
+                                <span class="text-gray-700 font-sans text-2xl ml-2">{{ config('app.name') }}</span>
                             </a>
                         </h1>
 

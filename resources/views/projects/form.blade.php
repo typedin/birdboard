@@ -3,7 +3,7 @@
     <label class="label" for="title">Title</label>
     <div class="control">
         <input
-            class="input bg-transparent border border-gray-400 rounded p-2 text-xs w-full"
+            class="form-input w-full"
             type="text"
             name="title"
             placeholder="title"
@@ -18,7 +18,7 @@
         <textarea
             name="description"
             rows="10"
-            class="input bg-transparent border border-gray-400 rounded p-2 text-xs w-full"
+            class="form-input w-full"
             required
             placeholder="I should start learning the piano"
             >{{ $project->description}}</textarea>
