@@ -48,6 +48,11 @@ class Project extends Model
         return $this->hasMany(Task::class);
     }
 
+    public function activity()
+    {
+        return $this->hasMany(Activity::class);
+    }
+
     /**
      * Add a task to a project.
      *
@@ -56,13 +61,6 @@ class Project extends Model
      */
     public function addTask(string $body)
     {
-        return $this->tasks()->create(
-            [
-                "body" => $body,
-                // hack for now
-                // @see create_tasks migration
-                "completed" => false
-            ]
-        );
+        return $this->tasks()->create(["body" => $body]);
     }
 }
