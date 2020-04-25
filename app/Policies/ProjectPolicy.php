@@ -10,7 +10,14 @@ class ProjectPolicy
 {
     use HandlesAuthorization;
 
-    public function update(User $user, Project $project)
+    /**
+     * Authorize a user to update their projects.
+     *
+     * @param  \App\User    $user
+     * @param  \App\Project $project
+     * @return bool
+     */
+    public function update(User $user, Project $project): bool
     {
         return $user->is($project->owner);
     }

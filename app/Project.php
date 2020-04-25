@@ -8,6 +8,7 @@ class Project extends Model
 {
     /**
      * Attributes to allow fillable assignements.
+     *
      * @var array
      */
     protected $fillable = [
