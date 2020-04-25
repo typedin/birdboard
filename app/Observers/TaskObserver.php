@@ -31,7 +31,7 @@ class TaskObserver
             return;
         };
 
-        $this->recordActivity($task->project, "updated");
+        $this->recordActivity($task->project, "completed_task");
     }
 
     protected function recordActivity(Project $project, string $activityType): void

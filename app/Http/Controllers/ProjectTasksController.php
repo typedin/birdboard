@@ -38,7 +38,12 @@ class ProjectTasksController extends Controller
     {
         $this->authorize("update", $task->project);
 
-        request()->validate(["body" => "required"]);
+        request()->validate(
+            [
+            "body" => "required",
+            "completed" => "sometimes"
+            ]
+        );
 
         $task->update(
             [
@@ -47,7 +52,6 @@ class ProjectTasksController extends Controller
             ]
         );
 
-
-        return redirect($project->path());
+        return redirect($project->fresh()->path());
     }
 }

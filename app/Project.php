@@ -61,6 +61,6 @@ class Project extends Model
      */
     public function addTask(string $body)
     {
-        return $this->tasks()->create(["body" => $body]);
+        return $this->tasks()->create([ "body" => $body, "completed" => false ]);
     }
 }

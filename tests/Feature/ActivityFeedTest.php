@@ -56,8 +56,6 @@ class ActivityFeedTest extends TestCase
     public function completing_a_new_task_records_projects_activity()
     {
         $project = ProjectFactory::withTasks(1)->create();
-        $project->refresh();
-        $this->assertCount(2, $project->activity);
 
         $this->actingAs($project->owner)->patch(
             $project->tasks[0]->path(),
@@ -66,8 +64,8 @@ class ActivityFeedTest extends TestCase
             "completed" => true
             ]
         );
-        $project->refresh();
+        $project->fresh();
         $this->assertCount(3, $project->activity);
-        $this->assertTrue($project->activity->last()->completed);
+        $this->assertEquals("completed_task", $project->activity->last()->description);
     }
 }

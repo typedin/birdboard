@@ -3,54 +3,52 @@
 namespace App\Http\Controllers;
 
 use App\Project;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\View\View;
 
 class ProjectsController extends Controller
 {
     /**
-     * Show all projects for a user.
+     * View all projects.
      *
-     * @return View
+     * @return \Illuminate\Http\Response
      */
-    public function index(): View
+    public function index()
     {
         $projects = auth()->user()->projects;
 
-        return view('projects.index', compact("projects"));
+        return view('projects.index', compact('projects'));
     }
 
     /**
-     * Show a specific project for a user.
+     * Show a single project.
      *
-     * @param  \App\Project $project
-     * @return View
-     * @throw  \Illuminate\Auth\Access\AuthorizationException
+     * @param Project $project
+     *
+     * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function show(Project $project): View
+    public function show(Project $project)
     {
-        $this->authorize("update", $project);
+        $this->authorize('update', $project);
 
         return view('projects.show', compact('project'));
     }
 
     /**
-     * Show the page to create a project.
+     * Create a new project.
      *
-     * @return View
+     * @return \Illuminate\Http\Response
      */
-    public function create(): View
+    public function create()
     {
-        return view("projects.create");
+        return view('projects.create');
     }
 
     /**
      * Persist a new project.
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(): RedirectResponse
+    public function store()
     {
         $project = auth()->user()->projects()->create($this->validateRequest());
 
@@ -58,26 +56,26 @@ class ProjectsController extends Controller
     }
 
     /**
-     * Show the page to edit a project.
+     * Edit the project.
      *
-     * @param  \App\Project $project
-     * @return View
+     * @param  Project $project
+     * @return \Illuminate\Http\Response
      */
-    public function edit(Project $project): View
+    public function edit(Project $project)
     {
-        return view("projects.edit", compact('project'));
+        return view('projects.edit', compact('project'));
     }
-
+    
     /**
      * Update the project.
      *
-     * @param  \App\Project $project
-     * @return RedirectResponse
-     * @throw  \Illuminate\Auth\Access\AuthorizationException
+     * @param  Project $project
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function update(Project $project): RedirectResponse
+    public function update(Project $project)
     {
-        $this->authorize("update", $project);
+        $this->authorize('update', $project);
 
         $project->update($this->validateRequest());
 
@@ -85,18 +83,16 @@ class ProjectsController extends Controller
     }
 
     /**
-     * Validate the request for a project.
+     * Validate the request attributes.
      *
-     * @return array validated data
+     * @return array
      */
-    protected function validateRequest(): array
+    protected function validateRequest()
     {
-        return request()->validate(
-            [
-                "title" => ["sometimes", "required" ],
-                "description" => ["sometimes", "required" ],
-                "notes" => "nullable",
-            ]
-        );
+        return request()->validate([
+            'title' => 'sometimes|required',
+            'description' => 'sometimes|required',
+            'notes' => 'nullable'
+        ]);
     }
 }
