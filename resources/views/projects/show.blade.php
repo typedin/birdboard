@@ -76,6 +76,7 @@
             </div>
             <div class="col-start-11 col-span-12 lg:mt-0 mt-6">
                 @include("projects.card")
+                @include("projects.activity.card")
             </div>
         </div>
     </main>
