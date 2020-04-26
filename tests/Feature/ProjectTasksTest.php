@@ -71,22 +71,16 @@ class ProjectTasksTest extends TestCase
     public function a_task_can_be_updated()
     {
         $project = ProjectFactory::withTasks(1)->create();
+        
+        $this->actingAs($project->owner)->patch($project->tasks->first()->path(), [
+            "body" => "changed",
+            "completed" => true
+        ]);
 
-        $this->actingAs($project->owner)
-            ->patch(
-                $project->tasks->first()->path(),
-                [
-                "body" => "changed",
-                "completed" => true
-                ]
-            );
-
-        $this->assertDatabaseHas(
-            'tasks', [
-                "body" => "changed",
-                "completed" => true
-            ]
-        );
+        $this->assertDatabaseHas('tasks', [
+            "body" => "changed",
+            "completed" => true
+        ]);
     }
 
     /**

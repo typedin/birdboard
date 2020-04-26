@@ -39,7 +39,7 @@ class Project extends Model
     }
 
     /**
-     * The task assiated to the project.
+     * The task associated to the project.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany Task
      */
@@ -48,6 +48,11 @@ class Project extends Model
         return $this->hasMany(Task::class);
     }
 
+    /**
+     * The pieces of activity associated to the project.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany Activity
+     */
     public function activity()
     {
         return $this->hasMany(Activity::class);
@@ -61,6 +66,28 @@ class Project extends Model
      */
     public function addTask(string $body)
     {
-        return $this->tasks()->create([ "body" => $body, "completed" => false ]);
+        return $this->tasks()->create([
+            "body" => $body,
+            "completed" => false
+        ]);
+    }
+
+    /**
+     * Record activity for a project when it is:
+     * created,
+     * updated
+     * one of its tasks is:
+     * created
+     * updated
+     *
+     * @param string $activityType
+     * @return void
+     */
+    public function recordActivity(string $activityType): void
+    {
+        Activity::create([
+            "project_id" => $this->id,
+            "description" => $activityType
+        ]);
     }
 }

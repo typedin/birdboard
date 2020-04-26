@@ -12,20 +12,17 @@ class ProjectTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * @test 
+     * @test
      */
     public function it_has_a_path()
     {
         $project = factory(Project::class)->create();
 
-        $this->assertEquals(
-            '/projects/1',
-            $project->path()
-        );
+        $this->assertEquals('/projects/1', $project->path());
     }
 
     /**
-     * @test 
+     * @test
      */
     public function it_belongs_to_an_owner()
     {

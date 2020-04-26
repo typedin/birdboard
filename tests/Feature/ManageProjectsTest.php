@@ -50,12 +50,17 @@ class ManageProjectsTest extends TestCase
     }
 
     /** @test */
-    function a_user_can_update_a_project()
+    public function a_user_can_update_a_project()
     {
         $project = ProjectFactory::create();
+        $attributes = [
+            'title' => 'Changed',
+            'description' => 'Changed',
+            'notes' => 'Changed',
+        ];
 
         $this->actingAs($project->owner)
-             ->patch($project->path(), $attributes = ['title' => 'Changed', 'description' => 'Changed', 'notes' => 'Changed'])
+             ->patch($project->path(), $attributes)
              ->assertRedirect($project->path());
 
         $this->get($project->path().'/edit')->assertOk();
@@ -64,12 +69,13 @@ class ManageProjectsTest extends TestCase
     }
 
     /** @test */
-    function a_user_can_update_a_projects_general_notes()
+    public function a_user_can_update_a_projects_general_notes()
     {
         $project = ProjectFactory::create();
+        $attributes = ['notes' => 'Changed'];
 
         $this->actingAs($project->owner)
-            ->patch($project->path(), $attributes = ['notes' => 'Changed']);
+            ->patch($project->path(), $attributes);
 
         $this->assertDatabaseHas('projects', $attributes);
     }

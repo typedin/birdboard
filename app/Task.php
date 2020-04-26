@@ -20,6 +20,10 @@ class Task extends Model
      */
     protected $fillable = ["body", "completed"];
 
+    protected $casts = [
+        "completed" => "boolean"
+    ];
+
     /**
      * Get the owning project.
      *
@@ -38,5 +42,10 @@ class Task extends Model
     public function path(): string
     {
         return $this->project->path() . '/tasks/' . $this->id;
+    }
+
+    public function complete()
+    {
+        $this->update(["completed" => true]);
     }
 }

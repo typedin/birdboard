@@ -2,8 +2,6 @@
 
 namespace App\Observers;
 
-use App\Activity;
-use App\Project;
 use App\Task;
 
 class TaskObserver
@@ -14,9 +12,9 @@ class TaskObserver
      * @param  \App\Task $task
      * @return void
      */
-    public function created(Task $task)
+    public function created(Task $task): void
     {
-        $this->recordActivity($task->project, "created");
+        $task->project->recordActivity("created_task");
     }
 
     /**
@@ -25,22 +23,12 @@ class TaskObserver
      * @param  \App\Task $task
      * @return void
      */
-    public function updated(Task $task)
+    public function updated(Task $task): void
     {
         if (! $task->completed) {
             return;
         };
 
-        $this->recordActivity($task->project, "completed_task");
-    }
-
-    protected function recordActivity(Project $project, string $activityType): void
-    {
-        Activity::create(
-            [
-                "project_id" => $project->id,
-                "description" => $activityType
-            ]
-        );
+        $task->project->recordActivity("completed_task");
     }
 }
