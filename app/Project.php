@@ -80,14 +80,11 @@ class Project extends Model
      * created
      * updated
      *
-     * @param string $activityType
+     * @param string $description
      * @return void
      */
-    public function recordActivity(string $activityType): void
+    public function recordActivity(string $description): void
     {
-        Activity::create([
-            "project_id" => $this->id,
-            "description" => $activityType
-        ]);
+        $this->activity()->create(["description" => $description ]);
     }
 }
