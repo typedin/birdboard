@@ -7,14 +7,14 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class ActivityFeedTest extends TestCase
+class RecordActivityTest extends TestCase
 {
     use RefreshDatabase;
 
     /**
      * @test
      */
-    public function creating_a_project_records_activity()
+    public function creating_a_project()
     {
         $project = ProjectFactory::create();
 
@@ -25,7 +25,7 @@ class ActivityFeedTest extends TestCase
     /**
      * @test
      */
-    public function updating_a_project_records_activity()
+    public function updating_a_project()
     {
         $project = ProjectFactory::create();
         $this->assertCount(1, $project->activity);
@@ -40,7 +40,7 @@ class ActivityFeedTest extends TestCase
     /**
      * @test
      */
-    public function creating_a_new_task_records_project_activity()
+    public function creating_a_new_task()
     {
         $project = ProjectFactory::create();
 
@@ -53,7 +53,7 @@ class ActivityFeedTest extends TestCase
     /**
      * @test
      */
-    public function completing_a_new_task_records_projects_activity()
+    public function completing_a_new_task()
     {
         $project = ProjectFactory::withTasks(1)->create();
 
