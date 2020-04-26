@@ -44,8 +44,23 @@ class Task extends Model
         return $this->project->path() . '/tasks/' . $this->id;
     }
 
-    public function complete()
+    /**
+     * Mark a task as complete.
+     *
+     * @return void
+     */
+    public function complete(): void
     {
         $this->update(["completed" => true]);
+    }
+
+    /**
+     * Mark a task as incomplete.
+     *
+     * @return void
+     */
+    public function incomplete(): void
+    {
+        $this->update(["completed" => false]);
     }
 }
