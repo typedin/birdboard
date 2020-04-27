@@ -6,10 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
-    /**
-     * @var array
-     */
-    public array $oldAttributes;
+    use RecordActivityTrait;
 
     /**
      * Attributes to allow fillable assignements.
@@ -75,67 +72,5 @@ class Project extends Model
             "body" => $body,
             "completed" => false
         ]);
-    }
-
-    /**
-     * Record activity for a project.
-     *
-     * @param string $description
-     * @return void
-     */
-    public function recordActivity(string $description): void
-    {
-        $this->activity()->create([
-            "description" => $description,
-            "changes" => $this->activityChanges($description),
-        ]);
-    }
-
-    /**
-     * Track the changes.
-     *
-     * @param string $description
-     * @return arra
-     */
-    private function activityChanges(string $description): array
-    {
-        $changes = [];
-
-        if ($description === "updated") {
-            $changes = [
-                "before" => $this->before(),
-                "after" => $this->getChanges()
-            ];
-        }
-
-        return $changes;
-    }
-
-    /**
-     * Create the before data.
-     *
-     * @return array
-     */
-    private function before(): array
-    {
-        return array_diff(
-            $this->withoutTimestamps($this->oldAttributes),
-            $this->withoutTimestamps($this->getAttributes())
-        );
-    }
-
-    /**
-     * Strip out timestamps.
-     *
-     * @param array $attributes
-     * @return array
-     */
-    private function withoutTimestamps(array $attributes): array
-    {
-        $tmp = $attributes;
-        foreach (["created_at", "updated_at"] as $keyToRemove) {
-            unset($tmp[$keyToRemove]);
-        }
-        return $tmp;
     }
 }

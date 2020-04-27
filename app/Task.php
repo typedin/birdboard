@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
+    use RecordActivityTrait;
+
     /**
      * The relationships that should be touched on save.
      *
@@ -20,8 +22,17 @@ class Task extends Model
      */
     protected $fillable = ["body", "completed"];
 
+    /**
+     * Attributes that should be casted.
+     *
+     * @var array
+     */
     protected $casts = [
         "completed" => "boolean"
+    ];
+
+    protected static $recordableEvents = [
+        "created", "deleted"
     ];
 
     /**
@@ -66,29 +77,5 @@ class Task extends Model
         $this->update(["completed" => false]);
 
         $this->recordActivity("incompleted_task");
-    }
-
-    /**
-     * The activity feed for the task.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany Activity
-     */
-    public function activity()
-    {
-        return $this->morphMany(Activity::class, "subject")->latest();
-    }
-
-    /**
-     * Record activity for a task.
-     *
-     * @param string $description
-     * @return void
-     */
-    public function recordActivity(string $description): void
-    {
-        $this->activity()->create([
-            "project_id" => $this->project->id,
-            "description" => $description
-        ]);
     }
 }
