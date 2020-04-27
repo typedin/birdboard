@@ -6,16 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Activity extends Model
 {
+    protected $casts = [
+        "changes" => "array"
+    ];
+
     /**
      * Attributes to allow fillable assignements.
      *
      * @var array
      */
     protected $fillable = [
-        "project_id",
+        "changes",
         "description",
+        "project_id",
+        "subject_id",
         "subject_type",
-        "subject_id"
     ];
 
     public function subject()

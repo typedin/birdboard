@@ -17,6 +17,11 @@ class ProjectObserver
         $project->recordActivity("created");
     }
 
+    public function updating(Project $project)
+    {
+        $project->oldAttributes = $project->getOriginal();
+    }
+
     /**
      * Handle the project "updated" event.
      *
