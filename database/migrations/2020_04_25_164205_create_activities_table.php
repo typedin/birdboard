@@ -18,6 +18,7 @@ class CreateActivitiesTable extends Migration
             function (Blueprint $table) {
                 $table->id();
                 $table->unsignedBigInteger("project_id");
+                $table->nullableMorphs("subject");
                 $table->string("description");
                 $table->timestamps();
 

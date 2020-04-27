@@ -11,5 +11,15 @@ class Activity extends Model
      *
      * @var array
      */
-    protected $fillable = ["project_id", "description"];
+    protected $fillable = [
+        "project_id",
+        "description",
+        "subject_type",
+        "subject_id"
+    ];
+
+    public function subject()
+    {
+        return $this->morphTo();
+    }
 }
