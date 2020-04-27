@@ -19,6 +19,7 @@ class Activity extends Model
         "changes",
         "description",
         "project_id",
+        "user_id",
         "subject_id",
         "subject_type",
     ];
@@ -26,5 +27,10 @@ class Activity extends Model
     public function subject()
     {
         return $this->morphTo();
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
