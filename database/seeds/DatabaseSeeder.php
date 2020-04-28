@@ -22,7 +22,10 @@ class DatabaseSeeder extends Seeder
         Auth::login($user);
 
         factory(Project::class, 5)->create(['owner_id' => 1 ]);
-
-        factory(Project::class, 5)->create();
+        $saly = factory(User::class)->create([
+            "name" => "Saly",
+            "email" => "saly@example.com",
+            "password" => Hash::make("secret")
+        ]);
     }
 }
