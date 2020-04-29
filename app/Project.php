@@ -74,13 +74,24 @@ class Project extends Model
         ]);
     }
 
-    public function invite(User $user)
+    /**
+     * Invite user to a project.
+     *
+     * @param User $user
+     * @return void
+     */
+    public function invite(User $user): void
     {
-        return $this->members()->attach($user);
+        $this->members()->attach($user);
     }
 
+    /**
+     * The members associated to the project.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany User
+     */
     public function members()
     {
-        return $this->belongsToMany(User::class, "project_members");
+        return $this->belongsToMany(User::class, "project_members")->withTimestamps();
     }
 }
