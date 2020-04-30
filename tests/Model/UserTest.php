@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Model;
 
 use App\User;
 use Facades\Tests\Setup\ProjectFactory;

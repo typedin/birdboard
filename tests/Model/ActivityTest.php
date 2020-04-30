@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Model;
 
 use App\Project;
 use App\User;
