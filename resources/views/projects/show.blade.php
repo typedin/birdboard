@@ -19,7 +19,21 @@
                     <meta itemprop="position" content="2" />
                 </li>
             </ol>
-            <a class="button" href="{{ $project->path(). '/edit' }}">Update Project</a>
+            <div class="flex items-center">
+                @foreach ($project->members as $member)
+                    <img
+                        class="rounded-full h-8 mr-2"
+                        src="{{ gravatar_url($member->email) }}"
+                        alt="{{ $member->name }}'s avatar"
+                    >
+                @endforeach
+                <img
+                    class="rounded-full h-8 mr-2"
+                    src="{{ gravatar_url($project->owner->email) }}"
+                    alt="{{ $project->owner->name }}'s avatar"
+                >
+                <a class="button ml-4" href="{{ $project->path(). '/edit' }}">Update Project</a>
+            </div>
         </div>
     </header>
     <main>
