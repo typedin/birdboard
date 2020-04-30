@@ -10,6 +10,11 @@ class ProjectPolicy
 {
     use HandlesAuthorization;
 
+    public function manage(User $user, Project $project): bool
+    {
+        return $user->is($project->owner);
+    }
+
     /**
      * Authorize a user to update their projects.
      *

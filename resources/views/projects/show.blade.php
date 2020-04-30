@@ -25,14 +25,14 @@
                         class="rounded-full h-8 mr-2"
                         src="{{ gravatar_url($member->email) }}"
                         alt="{{ $member->name }}'s avatar"
-                    >
-                @endforeach
-                <img
-                    class="rounded-full h-8 mr-2"
-                    src="{{ gravatar_url($project->owner->email) }}"
-                    alt="{{ $project->owner->name }}'s avatar"
-                >
-                <a class="button ml-4" href="{{ $project->path(). '/edit' }}">Update Project</a>
+                        >
+                    @endforeach
+                    <img
+                        class="rounded-full h-8 mr-2"
+                        src="{{ gravatar_url($project->owner->email) }}"
+                        alt="{{ $project->owner->name }}'s avatar"
+                        >
+                        <a class="button ml-4" href="{{ $project->path(). '/edit' }}">Update Project</a>
             </div>
         </div>
     </header>
@@ -76,21 +76,18 @@
                                 >{{ $project->notes }}</textarea>
                             <button class="button mt-4" type="submit">Save</button>
                         </form>
-                        @if ($errors->any())
-                            <div class="mt-6">
-                                <ul>
-                                    @foreach($errors->all() as $error)
-                                        <li class="text-sm text-red-600">{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
+                        @include("errors")
                     </div>
                 </div>
             </div>
             <div class="col-start-11 col-span-12 lg:mt-0 mt-6">
                 @include("projects.card")
                 @include("projects.activity.card")
+
+                @can ("manage", $project)
+                    @include("projects.invitations")
+                @endcan
+
             </div>
         </div>
     </main>
