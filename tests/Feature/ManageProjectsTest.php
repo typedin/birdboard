@@ -30,7 +30,6 @@ class ManageProjectsTest extends TestCase
         $this->signIn();
 
         $this->get('/projects/create')->assertStatus(200);
-        
 
         $response = $this->followingRedirects()->post('/projects', $attributes = factory(Project::class)->raw());
 
