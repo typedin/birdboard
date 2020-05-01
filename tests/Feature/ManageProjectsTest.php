@@ -30,21 +30,11 @@ class ManageProjectsTest extends TestCase
         $this->signIn();
 
         $this->get('/projects/create')->assertStatus(200);
+        
 
-        $attributes = [
-            'title' => $this->faker->sentence,
-            'description' => $this->faker->sentence,
-            'notes' => 'General notes here.'
-        ];
+        $response = $this->followingRedirects()->post('/projects', $attributes = factory(Project::class)->raw());
 
-        $response = $this->post('/projects', $attributes);
-
-        $project = Project::where($attributes)->first();
-
-        $response->assertRedirect($project->path());
-
-        $this->get($project->path())
-            ->assertSee($attributes['title'])
+        $response->assertSee($attributes['title'])
             ->assertSee($attributes['description'])
             ->assertSee($attributes['notes']);
     }
@@ -70,10 +60,13 @@ class ManageProjectsTest extends TestCase
              ->assertRedirect("/login");
 
         // sign a user who is not the owner of the project
-        $this->signIn();
+        $user = $this->signIn();
 
-        $this->delete($project->path())
-             ->assertStatus(403);
+        $this->delete($project->path())->assertStatus(403);
+
+        $project->invite($user);
+
+        $this->actingAs($user)->delete($project->path())->assertStatus(403);
     }
 
     /**

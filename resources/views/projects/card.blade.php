@@ -7,11 +7,14 @@
     <div class="text-gray-600 mt-4 flex-1">
         {{ \Illuminate\Support\Str::limit( $project->description, 100) }}
     </div>
-    <footer class="mt-4 flex justify-end">
-        <form action="{{ $project->path() }}" method="POST">
-            @method("DELETE")
-            @csrf
-            <button class="button mt-4" type="submit">Delete</button>
-        </form>
-    </footer>
+
+    @can ("manage", $project)
+        <footer class="mt-4 flex justify-end">
+            <form action="{{ $project->path() }}" method="POST">
+                @method("DELETE")
+                @csrf
+                <button class="button mt-4" type="submit">Delete</button>
+            </form>
+        </footer>
+    @endcan
 </div>

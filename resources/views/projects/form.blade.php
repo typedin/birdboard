@@ -31,12 +31,4 @@
     <a href="{{ $project->path() }}">Cancel</a>
 </div>
 
-@if ($errors->any())
-    <div class="mt-6">
-        <ul>
-        @foreach($errors->all() as $error)
-            <li class="text-sm text-red-600">{{ $error }}</li>
-        @endforeach
-        </ul>
-    </div>
-@endif
+@include("errors")
