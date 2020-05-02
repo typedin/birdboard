@@ -2,24 +2,8 @@
 @tailwind base;
 
 @tailwind components;
-.button {
-	@apply transition ease-in-out duration-100 bg-teal-400 text-white rounded-lg text-sm px-5 py-2 outline-none;
-}
-.button:hover {
-	@apply shadow-md;
-}
-.button:focus {
-	@apply outline-none bg-teal-600;
-}
-.card {
-	@apply bg-white p-5 rounded-lg shadow;
-}
-
-.form-input {
-	@apply bg-white border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal;
-}
-.form-input:focus {
-	@apply outline-none border-teal-400;
-}
+@import "components/button";
+@import "components/card";
+@import "components/form";
 
 @tailwind utilities;
