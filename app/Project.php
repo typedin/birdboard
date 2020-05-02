@@ -75,6 +75,17 @@ class Project extends Model
     }
 
     /**
+     * Add many tasks to a project.
+     *
+     * @param  array $tasks
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function addTasks(array $tasks)
+    {
+        return $this->tasks()->createMany($tasks);
+    }
+
+    /**
      * Invite user to a project.
      *
      * @param User $user
