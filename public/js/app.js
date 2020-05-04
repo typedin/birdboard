@@ -1922,6 +1922,7 @@ module.exports = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _BirdboardForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BirdboardForm */ "./resources/js/components/BirdboardForm.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -2024,18 +2025,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "NewProjectModal",
   data: function data() {
     return {
-      form: {
+      form: new _BirdboardForm__WEBPACK_IMPORTED_MODULE_1__["default"]({
         title: "",
         description: "",
         tasks: [{
           body: ""
         }]
-      },
-      errors: {}
+      })
     };
   },
   methods: {
@@ -2052,26 +2055,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.prev = 0;
-                _context.next = 3;
-                return axios.post("/projects", _this.form);
+                if (!_this.form.tasks[0].body) {
+                  delete _this.form.originalData.tasks;
+                }
 
-              case 3:
-                location = _context.sent.data.message;
-                _context.next = 9;
-                break;
+                _this.form.submit("/projects").then(function (response) {
+                  return location = response.data.message;
+                });
 
-              case 6:
-                _context.prev = 6;
-                _context.t0 = _context["catch"](0);
-                _this.errors = _context.t0.response.data.errors;
-
-              case 9:
+              case 2:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 6]]);
+        }, _callee);
       }))();
     }
   }
@@ -20468,7 +20465,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "form-input",
-                  class: _vm.errors.title ? "border-red-600" : "",
+                  class: _vm.form.errors.title ? "border-red-600" : "",
                   attrs: { type: "text", id: "title", name: "title" },
                   domProps: { value: _vm.form.title },
                   on: {
@@ -20481,10 +20478,10 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _vm.errors.title
+                _vm.form.errors.title
                   ? _c(
                       "div",
-                      _vm._l(_vm.errors.title, function(error) {
+                      _vm._l(_vm.form.errors.title, function(error) {
                         return _c("span", {
                           staticClass: "text-xs text-red-600 italic",
                           domProps: { textContent: _vm._s(error) }
@@ -20515,7 +20512,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "form-input",
-                  class: _vm.errors.description ? "border-red-600" : "",
+                  class: _vm.form.errors.description ? "border-red-600" : "",
                   attrs: {
                     name: "description",
                     placeholder: "title",
@@ -20532,10 +20529,10 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _vm.errors.description
+                _vm.form.errors.description
                   ? _c(
                       "div",
-                      _vm._l(_vm.errors.description, function(error) {
+                      _vm._l(_vm.form.errors.description, function(error) {
                         return _c("span", {
                           staticClass: "text-xs text-red-600 italic",
                           domProps: { textContent: _vm._s(error) }
@@ -32846,6 +32843,90 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
+
+/***/ }),
+
+/***/ "./resources/js/components/BirdboardForm.js":
+/*!**************************************************!*\
+  !*** ./resources/js/components/BirdboardForm.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var BirdboardForm = /*#__PURE__*/function () {
+  function BirdboardForm(data) {
+    _classCallCheck(this, BirdboardForm);
+
+    this.originalData = JSON.parse(JSON.stringify(data));
+    Object.assign(this, data);
+    this.errors = {};
+    this.submitted = false;
+  }
+
+  _createClass(BirdboardForm, [{
+    key: "data",
+    value: function data() {
+      var _this = this;
+
+      return Object.keys(this.originalData).reduce(function (data, attribute) {
+        data[attribute] = _this[attribute];
+        return data;
+      }, {});
+    }
+  }, {
+    key: "post",
+    value: function post(endpoint) {
+      this.submit(endpoint);
+    }
+  }, {
+    key: "patch",
+    value: function patch(endpoint) {
+      this.submit(endpoint, "patch");
+    }
+  }, {
+    key: "delete",
+    value: function _delete(endpoint) {
+      this.submit(endpoint, "delete");
+    }
+  }, {
+    key: "submit",
+    value: function submit(endpoint) {
+      var requestType = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "post";
+      return axios[requestType](endpoint, this.data())["catch"](this.onFail.bind(this)).then(this.onSuccess.bind(this));
+    }
+  }, {
+    key: "onSuccess",
+    value: function onSuccess(response) {
+      this.submitted = true;
+      this.errors = {};
+      return response;
+    }
+  }, {
+    key: "onFail",
+    value: function onFail(error) {
+      this.errors = error.response.data.errors;
+      this.submitted = false;
+      throw error;
+    }
+  }, {
+    key: "reset",
+    value: function reset() {
+      Object.assign(this, this.originalData);
+    }
+  }]);
+
+  return BirdboardForm;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (BirdboardForm);
 
 /***/ }),
 

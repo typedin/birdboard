@@ -11,12 +11,12 @@
                             id="title"
                             name="title"
                             class="form-input"
-                            :class="errors.title ? 'border-red-600' : ''"
+                            :class="form.errors.title ? 'border-red-600' : ''"
                             v-model="form.title"
                         />
-                        <div v-if="errors.title">
+                        <div v-if="form.errors.title">
                             <span
-                                v-for="error in errors.title"
+                                v-for="error in form.errors.title"
                                 class="text-xs text-red-600 italic"
                                 v-text="error"
                             />
@@ -32,11 +32,13 @@
                             placeholder="title"
                             rows="7"
                             v-model="form.description"
-                            :class="errors.description ? 'border-red-600' : ''"
+                            :class="
+                                form.errors.description ? 'border-red-600' : ''
+                            "
                         ></textarea>
-                        <div v-if="errors.description">
+                        <div v-if="form.errors.description">
                             <span
-                                v-for="error in errors.description"
+                                v-for="error in form.errors.description"
                                 class="text-xs text-red-600 italic"
                                 v-text="error"
                             />
@@ -95,16 +97,16 @@
 </template>
 
 <script>
+import BirdboardForm from "./BirdboardForm";
 export default {
     name: "NewProjectModal",
     data() {
         return {
-            form: {
+            form: new BirdboardForm({
                 title: "",
                 description: "",
                 tasks: [{ body: "" }]
-            },
-            errors: {}
+            })
         };
     },
     methods: {
@@ -112,12 +114,12 @@ export default {
             this.form.tasks.push({ body: "" });
         },
         async submit() {
-            try {
-                location = (await axios.post("/projects", this.form)).data
-                    .message;
-            } catch (error) {
-                this.errors = error.response.data.errors;
+            if (!this.form.tasks[0].body) {
+                delete this.form.originalData.tasks;
             }
+            this.form
+                .submit("/projects")
+                .then(response => (location = response.data.message));
         }
     }
 };
