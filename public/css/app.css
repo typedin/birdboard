@@ -683,6 +683,18 @@ video {
   border-color: #4fd1c5;
 }
 
+.dropdown-menu-item {
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  line-height: 2;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.dropdown-menu-item:hover {
+  background-color: #edf2f7;
+}
+
 .space-y-0 > :not(template) ~ :not(template){
   --space-y-reverse: 0;
   margin-top: calc(0px * calc(1 - var(--space-y-reverse)));

@@ -37,22 +37,27 @@
                                         <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                     @endif
                                 @else
-                                    <a id="navbarDropdown"
-                                       class="flex items-center text-sm"
-                                       href="#"
-                                       role="button"
-                                        data-toggle="dropdown"
-                                        aria-haspopup="true"
-                                        aria-expanded="false" v-pre>
-                                        <img
-                                            class="w-8 rounded-full"
-                                            src="{{ gravatar_url(Auth::user()->email) }}"
-                                            alt="{{ Auth::user()->name }}'s avatar"
-                                        />
-                                        <span class="ml-2">
-                                            {{ Auth::user()->name }}
-                                        </span>
-                                    </a>
+                                    <dropdown-component align="right">
+                                        <template v-slot:trigger>
+                                            <button class="flex items-center text-sm focus:outline-none">
+                                                <img
+                                                    class="w-8 rounded-full"
+                                                    src="{{ gravatar_url(Auth::user()->email) }}"
+                                                    alt="{{ Auth::user()->name }}'s avatar"
+                                                >
+                                                <span class="ml-2">
+                                                    {{ Auth::user()->name }}
+                                                </span>
+                                            </button>
+                                        </template>
+
+                                        <template v-slot:default>
+                                            <form id="logout-form" method="POST" action="/logout">
+                                                @csrf
+                                                <button class="dropdown-menu-item">Logout</button>
+                                            </form>
+                                        </template>
+                                    </dropdown>
 
                                 @endguest
                             </div>

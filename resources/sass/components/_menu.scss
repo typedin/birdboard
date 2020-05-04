@@ -1,0 +1,6 @@
+.dropdown-menu-item {
+	@apply rounded text-sm leading-loose px-4;
+	&:hover {
+		@apply bg-gray-200;
+	}
+}
